@@ -8,11 +8,11 @@
     --text-secondary: #a0aec0;
     --text-muted: #718096;
     
-    --color-primary: #00f2fe; /* Neon Cyan */
-    --color-secondary: #7f00ff; /* Deep Neon Purple */
-    --color-safe: #00e676; /* Emerald Green */
-    --color-warning: #ffb300; /* Warm Orange */
-    --color-danger: #ff0055; /* Crimson Red */
+    --color-primary: #00f2fe; 
+    --color-secondary: #7f00ff;
+    --color-safe: #00e676; 
+    --color-warning: #ffb300; 
+    --color-danger: #ff0055; 
     
     --gradient-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
     --gradient-purple: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%);
@@ -23,7 +23,6 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Reset & Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -39,7 +38,6 @@ body {
     line-height: 1.5;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -55,13 +53,11 @@ body {
     background: #2b304d;
 }
 
-/* Grid Layout */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* Sidebar Styling */
 .sidebar {
     width: 260px;
     background-color: var(--sidebar-bg);
@@ -153,7 +149,6 @@ body {
     animation: pulse-green 2s infinite;
 }
 
-/* Main Content area */
 .main-content {
     flex-grow: 1;
     padding: 2.5rem;
@@ -204,7 +199,6 @@ body {
     color: var(--color-primary);
 }
 
-/* General Layout Elements */
 .dashboard-section {
     display: none;
 }
@@ -224,7 +218,6 @@ body {
     box-shadow: var(--shadow-premium);
 }
 
-/* KPI Cards Grid */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -295,7 +288,6 @@ body {
     display: block;
 }
 
-/* Charts Grid */
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -335,7 +327,6 @@ body {
     width: 100%;
 }
 
-/* Simulator Styles */
 .simulator-layout {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -480,7 +471,6 @@ body {
     box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
 }
 
-/* Buttons */
 .btn {
     padding: 0.65rem 1.25rem;
     border-radius: 10px;
@@ -523,14 +513,12 @@ body {
     border-radius: 12px;
 }
 
-/* Simulator Results Panel */
 .simulator-results {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-/* Risk Meter Gauge styling */
 .risk-meter-card {
     text-align: center;
     display: flex;
@@ -548,7 +536,6 @@ body {
     width: 170px;
     height: 170px;
     border-radius: 50%;
-    /* Conic gradient representation of risk percentage */
     background: conic-gradient(var(--risk-color, #23273a) calc(var(--risk-value, 0) * 1%), #161927 0deg);
     display: flex;
     align-items: center;
@@ -607,7 +594,6 @@ body {
     margin: 0 auto;
 }
 
-/* Alert Signals Card */
 .alert-signals-card {
     transition: var(--transition-smooth);
 }
@@ -669,7 +655,6 @@ body {
     font-style: italic;
 }
 
-/* Models Predictions Breakdown */
 .models-breakdown-card h3 {
     font-size: 1rem;
     margin-bottom: 1.25rem;
@@ -737,7 +722,6 @@ body {
     animation: pulse-border 1.5s infinite;
 }
 
-/* Models Page Styles */
 .models-chart-row {
     margin-bottom: 2rem;
 }
@@ -779,7 +763,6 @@ body {
     color: var(--color-primary);
 }
 
-/* Toast Notification */
 .toast {
     position: fixed;
     bottom: 25px;
@@ -807,7 +790,6 @@ body {
     color: var(--color-primary);
 }
 
-/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -836,7 +818,6 @@ body {
     border-color: var(--color-danger) !important;
 }
 
-/* Responsiveness */
 @media (max-width: 1024px) {
     .charts-grid {
         grid-template-columns: 1fr;
