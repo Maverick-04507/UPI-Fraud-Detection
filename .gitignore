@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+
+# Datasets and processed files
+Dataset/
+*.csv
+*.joblib
+*.keras
+*.h5
+*.pkl
+
+# IDE / OS specific
+.idea/
+.vscode/
+*.swp
+.DS_Store

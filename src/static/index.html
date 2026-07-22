@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Fraud Detection & Analytics Dashboard</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-shield-halved logo-icon"></i>
+                <h2>UPI-Shield<span>.ai</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active"><i class="fa-solid fa-chart-line"></i> Overview</a>
+                <a href="#simulator" class="nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Fraud Simulator</a>
+                <a href="#models" class="nav-item"><i class="fa-solid fa-brain"></i> Model Comparison</a>
+            </nav>
+            <div class="sidebar-footer">
+                <p><i class="fa-solid fa-circle-dot status-online"></i> Backend Connected</p>
+                <small>v1.0.0 (Kaggle Dataset)</small>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>UPI Fraud Detection System</h1>
+                    <p>Real-time machine learning & anomaly detection based on historical payment patterns</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="btn-re-train"><i class="fa-solid fa-rotate"></i> Retrain Models</button>
+                    <div class="user-badge">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Section 1: Overview Dashboard -->
+            <section id="overview" class="dashboard-section active-section">
+                <!-- KPI Metrics Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper blue">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <h3>Total Transactions</h3>
+                            <p class="kpi-val" id="stat-total-txns">--</p>
+                            <span class="kpi-sub">Processed in 2024</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper green">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <h3>Success Rate</h3>
+                            <p class="kpi-val" id="stat-success-rate">--%</p>
+                            <span class="kpi-sub">Normal payment flow</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper red">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <h3>Fraud Rate</h3>
+                            <p class="kpi-val" id="stat-fraud-rate">--%</p>
+                            <span class="kpi-sub">Identified anomalies</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper purple">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <h3>Avg Txn Value</h3>
+                            <p class="kpi-val" id="stat-avg-amount">₹--</p>
+                            <span class="kpi-sub">Across all payment apps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Distribution Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3><i class="fa-solid fa-chart-pie"></i> Fraud vs Legitimate Ratio</h3>
+                        <div class="chart-container">
+                            <canvas id="chart-fraud-ratio"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3><i class="fa-solid fa-chart-column"></i> Transaction Amount Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="chart-amount-dist"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card span-2">
+                        <h3><i class="fa-solid fa-timeline"></i> Hourly Transaction Volume Peak Time</h3>
+                        <div class="chart-container">
+                            <canvas id="chart-hourly-trend"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Simulator -->
+            <section id="simulator" class="dashboard-section">
+                <div class="simulator-layout">
+                    <!-- Scenario Quick Templates & Form -->
+                    <div class="simulator-controls glass-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-sliders"></i> Simulator Configuration</h2>
+                            <p>Configure details or choose a preset template below</p>
+                        </div>
+
+                        <!-- Presets -->
+                        <div class="presets-container">
+                            <label class="section-label">Select Demo Presets:</label>
+                            <div class="preset-buttons">
+                                <button class="preset-btn active" data-preset="normal"><i class="fa-solid fa-check"></i> Normal P2P</button>
+                                <button class="preset-btn" data-preset="speed_hack"><i class="fa-solid fa-bolt"></i> Speed Hack</button>
+                                <button class="preset-btn" data-preset="pin_guess"><i class="fa-solid fa-lock-open"></i> PIN Guessing</button>
+                                <button class="preset-btn" data-preset="night_drain"><i class="fa-solid fa-moon"></i> Night Drain</button>
+                            </div>
+                        </div>
+
+                        <!-- Form -->
+                        <form id="simulator-form" class="sim-form">
+                            <!-- Section: Transaction Details -->
+                            <div class="form-section">
+                                <h3>Transaction Details</h3>
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label for="amount">Amount (₹)</label>
+                                        <input type="number" id="amount" value="500" min="1" max="100000" step="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hour_of_day">Hour of Day (0-23)</label>
+                                        <input type="number" id="hour_of_day" value="14" min="0" max="23" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time_since_last_txn_min">Min Since Last Txn</label>
+                                        <input type="number" id="time_since_last_txn_min" value="120" min="-1" required>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label for="payment_app">Payment App</label>
+                                        <select id="payment_app">
+                                            <option value="GPay">GPay</option>
+                                            <option value="PhonePe">PhonePe</option>
+                                            <option value="Paytm" selected>Paytm</option>
+                                            <option value="BHIM">BHIM</option>
+                                            <option value="Amazon Pay">Amazon Pay</option>
+                                            <option value="WhatsApp Pay">WhatsApp Pay</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="transaction_type">Txn Type</label>
+                                        <select id="transaction_type">
+                                            <option value="P2P" selected>P2P (Peer-to-Peer)</option>
+                                            <option value="P2M">P2M (Peer-to-Merchant)</option>
+                                            <option value="Bill Payment">Bill Payment</option>
+                                            <option value="Recharge">Recharge</option>
+                                            <option value="Subscription">Subscription</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section: User Behavior -->
+                            <div class="form-section">
+                                <h3>User Behavior & Profiles</h3>
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label for="user_avg_txn_value">User Avg Txn (₹)</label>
+                                        <input type="number" id="user_avg_txn_value" value="650" min="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_avg_monthly_txn">User Monthly Txns</label>
+                                        <input type="number" id="user_avg_monthly_txn" value="30" min="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_loyalty_score">Loyalty Score (0-1)</label>
+                                        <input type="number" id="user_loyalty_score" value="0.75" min="0" max="1" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label for="device_type">Device Type</label>
+                                        <select id="device_type">
+                                            <option value="Android" selected>Android</option>
+                                            <option value="iOS">iOS</option>
+                                            <option value="Web">Web</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_kyc_status">KYC Status</label>
+                                        <select id="user_kyc_status">
+                                            <option value="Verified" selected>Verified</option>
+                                            <option value="Not Verified">Not Verified</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="is_risk_user">High Risk Profile</label>
+                                        <select id="is_risk_user">
+                                            <option value="0" selected>No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section: Fraud Risk Signals -->
+                            <div class="form-section">
+                                <h3>Active Fraud Signals</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label for="new_device_flag">New/Unrecognized Device?</label>
+                                        <select id="new_device_flag">
+                                            <option value="0" selected>No (Recognized)</option>
+                                            <option value="1">Yes (Unrecognized)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ip_location_mismatch">IP Location Mismatch?</label>
+                                        <select id="ip_location_mismatch">
+                                            <option value="0" selected>No (Matches Profile)</option>
+                                            <option value="1">Yes (IP Mismatch)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label for="failed_attempts_last_24h">Failed PIN Attempts (24h)</label>
+                                        <input type="number" id="failed_attempts_last_24h" value="0" min="0" max="5" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="transaction_velocity">Velocity (Txns in 2 min)</label>
+                                        <input type="number" id="transaction_velocity" value="1" min="0" max="10" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amount_deviation_score">Amount Deviation (0-10)</label>
+                                        <input type="number" id="amount_deviation_score" value="0.2" min="0" max="10" step="0.1" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Implicit/Hidden Merchant details for simulation robustness -->
+                            <input type="hidden" id="receiver_type" value="User">
+                            <input type="hidden" id="is_weekend" value="0">
+                            <input type="hidden" id="is_night_transaction" value="0">
+                            <input type="hidden" id="recurring_payment_flag" value="0">
+                            <input type="hidden" id="balance_after_transaction" value="15000">
+                            <input type="hidden" id="transaction_frequency_score" value="0.6">
+                            <input type="hidden" id="account_age_days" value="365">
+                            <input type="hidden" id="linked_bank_count" value="2">
+                            <input type="hidden" id="avg_daily_transactions" value="0">
+                            <input type="hidden" id="is_registered" value="0">
+                            <input type="hidden" id="rating" value="0">
+                            <input type="hidden" id="user_city_tier" value="Tier 1">
+                            <input type="hidden" id="age_group" value="25-34">
+                            <input type="hidden" id="city" value="Mumbai">
+                            <input type="hidden" id="merchant_category" value="P2P_Transfer">
+                            <input type="hidden" id="merchant_size" value="None">
+
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-shield-virus"></i> Analyze UPI Transaction</button>
+                        </form>
+                    </div>
+
+                    <!-- Simulator Results Dashboard -->
+                    <div class="simulator-results">
+                        <!-- Risk Meter Card -->
+                        <div class="glass-card risk-meter-card" id="risk-result-card">
+                            <div class="risk-gauge-wrapper">
+                                <div class="risk-gauge">
+                                    <div class="risk-gauge-fill" id="risk-gauge-fill"></div>
+                                    <div class="risk-gauge-cover">
+                                        <span id="risk-percent-text">--%</span>
+                                        <small>Risk Score</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="risk-verdict">
+                                <h3 id="verdict-title">Ready for Analysis</h3>
+                                <p id="verdict-desc">Configure the parameters on the left and run the check to assess UPI fraud probability.</p>
+                            </div>
+                        </div>
+
+                        <!-- Active Risk Factors -->
+                        <div class="glass-card alert-signals-card disabled" id="risk-signals-card">
+                            <h3><i class="fa-solid fa-bell-slash" id="signals-icon"></i> Triggered Risk Signals</h3>
+                            <ul class="signals-list" id="signals-list">
+                                <li class="no-signals">No check performed yet</li>
+                            </ul>
+                        </div>
+
+                        <!-- Multi-Model Breakdown -->
+                        <div class="glass-card models-breakdown-card">
+                            <h3><i class="fa-solid fa-list-check"></i> Multi-Model Classification</h3>
+                            <div class="model-rows" id="model-breakdown-rows">
+                                <div class="model-row-item">
+                                    <div class="model-info">
+                                        <span class="m-name">Random Forest</span>
+                                        <span class="m-type">Supervised Classifier</span>
+                                    </div>
+                                    <div class="model-result" id="res-rf">
+                                        <span class="badge badge-gray">No Data</span>
+                                    </div>
+                                </div>
+                                <div class="model-row-item">
+                                    <div class="model-info">
+                                        <span class="m-name">1D CNN</span>
+                                        <span class="m-type">Convolutional Neural Network</span>
+                                    </div>
+                                    <div class="model-result" id="res-cnn">
+                                        <span class="badge badge-gray">No Data</span>
+                                    </div>
+                                </div>
+                                <div class="model-row-item">
+                                    <div class="model-info">
+                                        <span class="m-name">Autoencoder</span>
+                                        <span class="m-type">Unsupervised Anomaly Model</span>
+                                    </div>
+                                    <div class="model-result" id="res-ae">
+                                        <span class="badge badge-gray">No Data</span>
+                                    </div>
+                                </div>
+                                <div class="model-row-item">
+                                    <div class="model-info">
+                                        <span class="m-name">K-Means</span>
+                                        <span class="m-type">Clustering Proximity</span>
+                                    </div>
+                                    <div class="model-result" id="res-kmeans">
+                                        <span class="badge badge-gray">No Data</span>
+                                    </div>
+                                </div>
+                                <div class="model-row-item">
+                                    <div class="model-info">
+                                        <span class="m-name">Local Outlier Factor</span>
+                                        <span class="m-type">Density Outlier Model</span>
+                                    </div>
+                                    <div class="model-result" id="res-lof">
+                                        <span class="badge badge-gray">No Data</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Model Evaluation -->
+            <section id="models" class="dashboard-section">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h2>Model Performance Analytics</h2>
+                        <p>Detailed performance benchmarks on the holdout test set (20% of Kaggle UPI dataset)</p>
+                    </div>
+
+                    <!-- Chart Comparison -->
+                    <div class="models-chart-row">
+                        <div class="chart-card span-2">
+                            <h3>F1-Score Comparison</h3>
+                            <div class="chart-container" style="height: 300px;">
+                                <canvas id="chart-models-f1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Table -->
+                    <div class="table-wrapper">
+                        <table class="performance-table" id="perf-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Accuracy</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                    <th>ROC-AUC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> Loading metrics from training runs...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-info toast-icon"></i>
+        <span id="toast-message">Message</span>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
