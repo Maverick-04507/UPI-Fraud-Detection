@@ -2,12 +2,13 @@ import os
 import json
 import joblib
 import pandas as pd
-import numpy as np
-from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
+import numpy as np
 import tensorflow as tf
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+
 
 app = FastAPI(title="UPI Fraud Detection API", description="API for predicting UPI transaction fraud using multiple models")
 
@@ -23,6 +24,42 @@ kmeans_meta = None
 
 models_loaded = False
 
+
+class TransactionInput(BaseModel):
+    amount: float
+    hour_of_day: int
+    is_weekend: int
+    is_night_transaction: int
+    time_since_last_txn_min: float
+    user_avg_monthly_txn: int
+    user_avg_txn_value: float
+    user_loyalty_score: float
+    new_device_flag: int
+    ip_location_mismatch: int
+    failed_attempts_last_24h: int
+    transaction_velocity: int
+    amount_deviation_score: float
+    recurring_payment_flag: int
+    balance_after_transaction: float
+    transaction_frequency_score: float
+    account_age_days: int
+    linked_bank_count: int
+    is_risk_user: int  
+    avg_daily_transactions: float  
+    is_registered: int  
+    rating: float  
+    
+    receiver_type: str
+    transaction_type: str
+    payment_app: str
+    device_type: str
+    user_city_tier: str
+    user_kyc_status: str
+    age_group: str
+    city: str
+    merchant_category: str
+    merchant_size: str
+    
 def load_all_artifacts():
     global scaler, feature_cols, autoencoder_meta, kmeans_meta, models_loaded
     try:
@@ -62,41 +99,6 @@ def load_all_artifacts():
     except Exception as e:
         print(f"Error loading models or encoders: {e}")
         return False
-
-class TransactionInput(BaseModel):
-    amount: float
-    hour_of_day: int
-    is_weekend: int
-    is_night_transaction: int
-    time_since_last_txn_min: float
-    user_avg_monthly_txn: int
-    user_avg_txn_value: float
-    user_loyalty_score: float
-    new_device_flag: int
-    ip_location_mismatch: int
-    failed_attempts_last_24h: int
-    transaction_velocity: int
-    amount_deviation_score: float
-    recurring_payment_flag: int
-    balance_after_transaction: float
-    transaction_frequency_score: float
-    account_age_days: int
-    linked_bank_count: int
-    is_risk_user: int  
-    avg_daily_transactions: float  
-    is_registered: int  
-    rating: float  
-    
-    receiver_type: str
-    transaction_type: str
-    payment_app: str
-    device_type: str
-    user_city_tier: str
-    user_kyc_status: str
-    age_group: str
-    city: str
-    merchant_category: str
-    merchant_size: str
 
 def safe_encode(col_name, val):
     le = encoders.get(col_name)
