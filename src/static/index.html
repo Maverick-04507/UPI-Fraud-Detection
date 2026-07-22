@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPI Fraud Detection & Analytics Dashboard</title>
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="logo-area">
                 <i class="fa-solid fa-shield-halved logo-icon"></i>
@@ -31,9 +27,7 @@
             </div>
         </aside>
 
-        <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Header -->
             <header class="main-header">
                 <div class="header-title">
                     <h1>UPI Fraud Detection System</h1>
@@ -48,9 +42,7 @@
                 </div>
             </header>
 
-            <!-- Section 1: Overview Dashboard -->
             <section id="overview" class="dashboard-section active-section">
-                <!-- KPI Metrics Cards -->
                 <div class="kpi-grid">
                     <div class="kpi-card">
                         <div class="kpi-icon-wrapper blue">
@@ -94,7 +86,6 @@
                     </div>
                 </div>
 
-                <!-- Core Distribution Charts -->
                 <div class="charts-grid">
                     <div class="chart-card">
                         <h3><i class="fa-solid fa-chart-pie"></i> Fraud vs Legitimate Ratio</h3>
@@ -117,17 +108,14 @@
                 </div>
             </section>
 
-            <!-- Section 2: Simulator -->
             <section id="simulator" class="dashboard-section">
                 <div class="simulator-layout">
-                    <!-- Scenario Quick Templates & Form -->
                     <div class="simulator-controls glass-card">
                         <div class="card-header">
                             <h2><i class="fa-solid fa-sliders"></i> Simulator Configuration</h2>
                             <p>Configure details or choose a preset template below</p>
                         </div>
 
-                        <!-- Presets -->
                         <div class="presets-container">
                             <label class="section-label">Select Demo Presets:</label>
                             <div class="preset-buttons">
@@ -138,9 +126,7 @@
                             </div>
                         </div>
 
-                        <!-- Form -->
                         <form id="simulator-form" class="sim-form">
-                            <!-- Section: Transaction Details -->
                             <div class="form-section">
                                 <h3>Transaction Details</h3>
                                 <div class="form-row-3">
@@ -182,7 +168,6 @@
                                 </div>
                             </div>
 
-                            <!-- Section: User Behavior -->
                             <div class="form-section">
                                 <h3>User Behavior & Profiles</h3>
                                 <div class="form-row-3">
@@ -225,7 +210,6 @@
                                 </div>
                             </div>
 
-                            <!-- Section: Fraud Risk Signals -->
                             <div class="form-section">
                                 <h3>Active Fraud Signals</h3>
                                 <div class="form-row-2">
@@ -260,7 +244,6 @@
                                 </div>
                             </div>
 
-                            <!-- Implicit/Hidden Merchant details for simulation robustness -->
                             <input type="hidden" id="receiver_type" value="User">
                             <input type="hidden" id="is_weekend" value="0">
                             <input type="hidden" id="is_night_transaction" value="0">
@@ -282,9 +265,7 @@
                         </form>
                     </div>
 
-                    <!-- Simulator Results Dashboard -->
                     <div class="simulator-results">
-                        <!-- Risk Meter Card -->
                         <div class="glass-card risk-meter-card" id="risk-result-card">
                             <div class="risk-gauge-wrapper">
                                 <div class="risk-gauge">
@@ -301,7 +282,6 @@
                             </div>
                         </div>
 
-                        <!-- Active Risk Factors -->
                         <div class="glass-card alert-signals-card disabled" id="risk-signals-card">
                             <h3><i class="fa-solid fa-bell-slash" id="signals-icon"></i> Triggered Risk Signals</h3>
                             <ul class="signals-list" id="signals-list">
@@ -309,7 +289,6 @@
                             </ul>
                         </div>
 
-                        <!-- Multi-Model Breakdown -->
                         <div class="glass-card models-breakdown-card">
                             <h3><i class="fa-solid fa-list-check"></i> Multi-Model Classification</h3>
                             <div class="model-rows" id="model-breakdown-rows">
@@ -364,7 +343,6 @@
                 </div>
             </section>
 
-            <!-- Section 3: Model Evaluation -->
             <section id="models" class="dashboard-section">
                 <div class="glass-card">
                     <div class="card-header">
@@ -382,7 +360,6 @@
                         </div>
                     </div>
 
-                    <!-- Performance Table -->
                     <div class="table-wrapper">
                         <table class="performance-table" id="perf-table">
                             <thead>
@@ -409,7 +386,6 @@
         </main>
     </div>
 
-    <!-- Notification Toast -->
     <div id="toast" class="toast">
         <i class="fa-solid fa-circle-info toast-icon"></i>
         <span id="toast-message">Message</span>
