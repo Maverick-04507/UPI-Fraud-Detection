@@ -79,9 +79,6 @@ Alternatively, you can run uvicorn directly:
 uvicorn src.app:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-- **Dashboard**: Access the web interface at [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- **API Documentation**: Interactive Swagger UI at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-
 ## API Endpoints Overview
 
 - `POST /api/train`: Triggers the `model_training.py` script and dynamically reloads the models.
